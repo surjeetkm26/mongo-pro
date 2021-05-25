@@ -39,7 +39,7 @@ spec:
     - destination:
         host: productpage
         port:
-          number: 80
+          number: 8080
 ---
 # Productpage services
 ##################################################################################################
