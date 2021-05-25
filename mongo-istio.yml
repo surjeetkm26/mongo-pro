@@ -1,3 +1,46 @@
+# Productpage ISTIO Gateway
+##################################################################################################
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+    name: mongodb-gateway
+spec:
+  selector:
+     istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+# Productpage ISTIO VirtualService
+##################################################################################################
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: customerservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - mongodb-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /product
+    - uri:
+        prefix: /test
+    - uri:
+        prefix: /customer
+    route:
+    - destination:
+        host: productpage
+        port:
+          number: 80
+---
 # Productpage services
 ##################################################################################################
 apiVersion: v1
@@ -7,11 +50,10 @@ metadata:
   labels:
     app: productpage
     service: productpage
-spec:
-  type: NodePort
+spec:  
   ports:
   - port: 8080
-    name: http
+    name: http-mongoservice
   selector:
     app: productpage
 ---
