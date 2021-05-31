@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-south-customerservice
+  namespace: NAMESPACE
+data:
+  clientname: CCPSouth
+  clientid: b015ad77-2edb-4a0b-9e6e-cf7bf288c47c
+  xdellidentitykey: CCPApp

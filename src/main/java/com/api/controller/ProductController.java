@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +22,17 @@ public class ProductController {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
-
+	
+	@Value("${clientname}")
+	private String clientname;
+	
 	@GetMapping("/getmsg/{name}")
 	public String getMessage(@PathVariable("name") String name) {
 		LOGGER.info("Controller INFO===================");
 		LOGGER.debug("Controller DEBUG==================");
-		return "Hello"+ name;
+		return "Hello"+ name + clientname;
 	}
-	@GetMapping("/getCustByState/{state}")
+/*	@GetMapping("/getCustByState/{state}")
 	public List<String> getCustomersByState(@PathVariable("state") String state){
 		LOGGER.info("Get Customers By State=================");
 		List<Customer> cust1=customerRepository.getCustomersByState(state);
@@ -36,5 +40,5 @@ public class ProductController {
 		System.out.println(list);
 		return list;
 	}
-
+**/
 }
